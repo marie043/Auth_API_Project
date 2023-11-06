@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AUTH OPEN API</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+.fakeimg {
+	height: 200px;
+	background: #aaa;
+}
+
+.example {
+	padding: 3%;
+	border: 1px solid grey;
+}
+
+.code {
+	height: 1000px;
+}
+
+.config-code {
+	height: 200px;
+}
+
+#ip {
+	width: 200px;
+	display: inline-block;
+}
+
+.container>div {
+	margin: 5%
+}
+</style>
+</head>
+<body>
+
+	<div class="p-5 bg-primary text-white text-center">
+		<h1>AUTH OPEN API</h1>
+		<p>쉽고 빠르게 회원을 관리하세요!</p>
+	</div>
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="key-div"
+					data-bs-toggle="modal" data-bs-target="#keyModal">개발자 키 발급</a></li>
+				<li class="nav-item"><a class="nav-link" href="#"
+					data-bs-toggle="modal" data-bs-target="#registerModal">회원가입 테스트</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#"
+					data-bs-toggle="modal" data-bs-target="#deleteModal">회원탈퇴 테스트</a></li>
+				<li class="nav-item"><a class="nav-link" href="#config">환경설정
+						하기</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="#form-for-dev-register">회원가입 폼 보기</a></li>
+				<li class="nav-item"><a class="nav-link" href="#form-for-login">로그인
+						폼 보기</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="#form-for-delete">회원탈퇴 폼 보기</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-8">
+		<div>
+			<h1>AUTH OPEN API PROJECT</h1>
+			<h5>Join us NOW!!!</h5>
+			<div>
+				<div id="key-div">
+					<h5>당신의 개발자 키</h5>
+					<p id="dev-key-p"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<h1>HOW TO START?</h1>
+			<p>
+				당신의 프로그램에 우리의 API를 활용해 보세요!<br> 다음을 따라하면 당신도 쉽게 회원가입, 회원탈퇴, 로그인 서비스를
+				제공할 수 있습니다;
+			</p>
+		</div>
+		<div id="config">
+			<!-- 환경 설정 예시 -->
+			<h1>환경을 설정하세요!</h1>
+			<p>
+				다음에서 제공하는 예시로 환경을 설정해 주세요!<br> 1. 우리 의 아이피를 포함 시키세요!<br>
+				현재 우리의 아이피는 <input type="text" class="form-control" disabled id="ip">
+				<input class="btn btn-success" type="button" id="copy-ip"
+					value="복사하기" />입니다.<br> 2. 개발자 키를 발급 받으셨나요? <a href="key-div"
+					data-bs-toggle="modal" data-bs-target="#keyModal">개발자 키 발급 받기</a>
+				받으셨다면 이제 개발자 키를 프로젝트에 포함 시키세요! <br> 개발자 키를 프로젝트에 포함 시키는 방법은 다음의
+				두가지 입니다<br> 2-1. 개발자 키를 Javascript에 포함시키세요.<br> 2-2. 개발자 키
+				서버에 포함시키고 Javascript에서 fetch로 받아오세요.<br>
+			</p>
+			<div class="example">
+				<h5>우리 의 아이피를 포함 시키세요</h5>
+				<textarea disabled id="config-code3"
+					class="form-control config-code">
+&lt;script&gt;
+let ip = ''; //여기에 위에서 제시된 저희의 아이피를 입력하세요!
+&lt;/script&gt;  		
+  	</textarea>
+				<div>
+					<input class="btn btn-success" type="button" id="copy-config3"
+						value="복사하기" />
+				</div>
+				<hr>
+				<h5>개발자 키를 Javascript에 포함시키세요.</h5>
+				<textarea disabled id="config-code1"
+					class="form-control config-code">
+&lt;script&gt;
+const dev_key = ''; // 여기에 당신이 발급받은 개발자 키를 넣으세요
+&lt;/script&gt;
+  	</textarea>
+				<div>
+					<input class="btn btn-success" type="button" id="copy-config1"
+						value="복사하기" />
+				</div>
+				<hr>
+				<h5>개발자 키 서버에 포함시키고 Javascript에서 fetch로 받아오세요.</h5>
+				<textarea disabled id="config-code2"
+					class="form-control config-code">
+&lt;script&gt;
+let dev_key = ''
+const yourDevKeyUrl = ''// 여기에 당신의 개발자 키를 저장한 서버 url을 넣으세요
+fetch(yourDevKeyUrl, {method='get'}) // 당신의 서버로 부터 개발자 키를 json에 형식으로 받아오세요 
+.then(res=>res.json()) 
+.then(obj=>{ 
+	dev_key = obj['dev_key']; 
+});
+&lt;/script&gt;  		
+  	</textarea>
+				<div>
+					<input class="btn btn-success" type="button" id="copy-config2"
+						value="복사하기" />
+				</div>
+			</div>
+		</div>
+		<!-- 회원가입 폼 예시 -->
+		<div id="form-for-dev-register">
+			<h1>회원가입 폼 예시</h1>
+			<h5>
+				다음의 폼은 우리가 제공하는 회원가입 폼의 예시입니다.<br> 다음의 코드를 당신의 프로젝트에 포함 시키세요!
+			</h5>
+			<div class="example">
+				<div>
+					<form>
+						<div class="mb-3 mt-3">
+							<label for="example-id" class="form-label">ID:</label> <input
+								type="email" class="form-control" id="example-id"
+								placeholder="Enter ID">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="example-pw" class="form-label">Password:</label> <input
+								type="password" class="form-control" id="example-pw"
+								placeholder="Enter password">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="example-name" class="form-label">Name:</label> <input
+								type="text" class="form-control" id="example-name"
+								placeholder="Enter Name">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="example-email" class="form-label">Email:</label> <input
+								type="email" class="form-control" id="example-email"
+								placeholder="Enter email">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="example-birthday" class="form-label">Birthday:</label>
+							<input type="date" class="form-control" id="example-birthday"
+								value="1997-08-04">
+						</div>
+						<input type="button" class="btn btn-primary" value="통합 회원가입"
+							id="example-register-btn" />
+					</form>
+				</div>
+				<hr>
+				<textarea class="code form-control" id="register-code" disabled>
+ &lt;form&gt; 
+  &lt;div class="mb-3 mt-3"&gt; 
+    &lt;label for="id" class="form-label"&gt;ID:&lt;/label&gt; 
+    &lt;input type="text" class="form-control" id="id" placeholder="Enter ID"&gt; 
+  &lt;/div&gt; 
+  &lt;div class="mb-3 mt-3"&gt; 
+    &lt;label for="name" class="form-label"&gt;Name:&lt;/label&gt; 
+    &lt;input type="text" class="form-control" id="name" placeholder="Enter Name"&gt; 
+  &lt;/div&gt; 
+  &lt;div class="mb-3 mt-3"&gt; 
+    &lt;label for="pw" class="form-label"&gt;Password:&lt;/label&gt; 
+    &lt;input type="password" class="form-control" id="pw" placeholder="Enter password"&gt; 
+  &lt;/div&gt; 
+  &lt;div class="mb-3 mt-3"&gt; 
+    &lt;label for="email" class="form-label"&gt;Email:&lt;/label&gt; 
+    &lt;input type="email" class="form-control" id="email" placeholder="Enter email"&gt; 
+  &lt;/div&gt; 
+  &lt;div class="mb-3 mt-3"&gt; 
+    &lt;label for="birthday" class="form-label"&gt;Email:&lt;/label&gt; 
+    &lt;input type="date" class="form-control" id="birthday" value="1997-08-04"&gt; 
+  &lt;/div&gt; 
+  &lt;input type="button" class="btn btn-primary" value="통합 회원가입" id="register-btn"/&gt; 
+&lt;/form&gt; 
+&lt;script&gt; 
+const member_register_url = 'http://'+ ip +':8080/api/sign'; 
+
+document.getElementById('register-btn').addEventListener('click', function(){ 
+	const id = document.getElementById('id').value; 
+	const pw = document.getElementById('pw').value;	 
+	const email = document.getElementById('email').value; 
+	const name = document.getElementById('name').value; 
+	const birthday = document.getElementById('birthday').value; 
+	const data = {dev_key, id, pw, email, birthday, name}; 
+	fetch(member_register_url, { 
+		method:"POST", 
+		headers: {"Content-Type": "application/json"}, 
+		body: JSON.stringify(data), 
+	}).then(function(res){ 
+		return res.json(); 
+	}).then(function(obj){ 
+		const msg = obj['msg']; 
+		const detail = obj['detail']; 
+		if(msg=='OK'){ 
+			alert('통합 회원가입 성공'); 
+			document.getElementbyId('register-modal-close-btn').click(); 
+		}else{ 
+			alert(detail); 
+		} 
+	}); 
+}); 
+&lt;/script&gt;		
+  				</textarea>
+				<div>
+					<input class="btn btn-success" type="button"
+						id="copy-register-code-copy-btn" value="복사하기" />
+				</div>
+			</div>
+		</div>
+		<div id="form-for-login">
+			<h1>로그인 폼 예시</h1>
+			<h5>
+				다음의 폼은 우리가 제공하는 로그인 폼의 예시입니다.<br> 다음의 코드를 당신의 프로젝트에 포함 시키세요!
+			</h5>
+			<div class="example">
+				<div>
+					<form action="">
+						<div class="mb-3 mt-3">
+							<label for="example-login-id" class="form-label">ID:</label> <input
+								type="text" class="form-control" id="example-login-id"
+								placeholder="Enter ID">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="example-login-pw" class="form-label">Password:</label>
+							<input type="password" class="form-control" id="example-login-pw"
+								placeholder="Enter password">
+						</div>
+						<input type="button" class="btn btn-primary" value="login"
+							id="example-login-btn">
+					</form>
+				</div>
+				<hr>
+				<textarea class="code form-control" id="login-code" disabled>
+&lt;form action=""&gt; 
+ &lt;div class="mb-3 mt-3"&gt; 
+   &lt;label for="id" class="form-label"&gt;ID:&lt;/label&gt; 
+   &lt;input type="text" class="form-control" id="id" placeholder="Enter ID"&gt; 
+ &lt;/div&gt; 
+ &lt;div class="mb-3 mt-3"&gt; 
+   &lt;label for="pw" class="form-label"&gt;Password:&lt;/label&gt; 
+   &lt;input type="password" class="form-control" id="pw" placeholder="Enter password"&gt; 
+ &lt;/div&gt; 
+ &lt;input type="button" class="btn btn-primary" value="login" id="login-btn"&gt; 
+&lt;/form&gt; 
+&lt;script&gt; 
+const member_login_url = 'http://'+ip+':8080/api/login'; 
+ 
+// 여기에 당신의 제품의 URL을 넣으세요!!! 
+const url = ''; 
+ 
+document.getElementById('login-btn').addEventListener('click', function(){ 
+	const id = document.getElementById('id').value; 
+	const pw = document.getElementById('pw').value; 	
+	const data = {dev_key, id, pw}; 
+	fetch(member_login_url, { 
+		method:"POST", 
+		headers: {"Content-Type": "application/json"}, 
+		body: JSON.stringify(data), 
+	}).then(function(res){ 
+		return res.json(); 
+	}).then(function(obj){ 
+		const msg = obj['msg']; 
+		const birthday = obj['brithday']; 
+		const name = obj['name']; 
+		const email = obj['email']; 
+		const detail = obj['detail']; 
+		if(msg=="OK"){ 
+			// 로그인 성공 
+			document.getElementById('login-test-modal-close-btn').click(); 
+			const user_info = {id, pw, birthday, name, email}; // 당신의 서버로 보낼 사용자 데이터를 골라서 담으세요 
+			fetch(url, { 
+				method:"POST", 
+				headers: {"Content-Type": "application/json"}, 
+				body: JSON.stringify(user_info), 
+			}) 
+		}else{ 
+			// 로그인 실패 
+			alert(detail); 
+		} 
+	}); 
+}); 
+&lt;/script&gt;
+  				</textarea>
+				<div>
+					<input class="btn btn-success" type="button"
+						id="copy-login-code-copy-btn" value="복사하기" />
+				</div>
+			</div>
+		</div>
+		<div id="form-for-delete">
+			<h1>회원탈퇴 폼 예시</h1>
+			<h5>
+				다음의 폼은 우리가 제공하는 회원탈퇴 폼의 예시입니다.<br> 다음의 코드를 당신의 프로젝트에 포함 시키세요!
+			</h5>
+			<div class="example">
+				<div>
+					<form action="">
+						<div class="mb-3 mt-3">
+							<label for="example-delete-id" class="form-label">ID:</label> <input
+								type="email" class="form-control" id="example-delete-id"
+								placeholder="Enter ID">
+						</div>
+						<div class="mb-3">
+							<label for="example-delete-pw" class="form-label">Password:</label>
+							<input type="password" class="form-control"
+								id="example-delete-pw" placeholder="Enter password" name="pswd">
+						</div>
+						<div class="form-check mb-3">
+							<label class="form-check-label"> <input
+								class="form-check-input" type="checkbox"
+								id="example-delete-check"> 회원 탈퇴를 희망합니다.
+							</label>
+						</div>
+						<input type="button" class="btn btn-primary" value="회원 탈퇴"
+							id="example-delete-btn">
+					</form>
+				</div>
+				<hr>
+				<textarea class='code form-control' id='delete-code' disabled>
+&lt;form action=""&gt;
+  &lt;div class="mb-3 mt-3"&gt;
+    &lt;label for="delete-id" class="form-label"&gt;ID:&lt;/label&gt;
+    &lt;input type="text" class="form-control" id="delete-id" placeholder="Enter ID"&gt;
+  &lt;/div&gt;
+  &lt;div class="mb-3"&gt;
+    &lt;label for="delete-pw" class="form-label"&gt;Password:&lt;/label&gt;
+    &lt;input type="password" class="form-control" id="delete-pw" placeholder="Enter password" name="pswd"&gt;
+  &lt;/div&gt;
+  &lt;div class="form-check mb-3"&gt;
+    &lt;label class="form-check-label"&gt;
+      &lt;input class="form-check-input" type="checkbox" id="delete-check"&gt; 회원 탈퇴를 희망합니다.
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;input type="button" class="btn btn-primary" value="회원 탈퇴" id="delete-btn"&gt;
+&lt;/form&gt;
+&lt;script&gt;
+const member_delete_url = 'http://'+ip+':8080/api/delete';
+document.getElementById('delete-btn').addEventListener('click', function(){
+	const delete_check = document.getElementById('delete-check').checked;
+	if(delete_check==false){
+		alert('통합 회원탈퇴 희망을 체크해 주세요');
+		return;
+	}
+	const id = document.getElementById('delete-id').value;
+	const pw = document.getElementById('delete-pw').value;
+	const data = {dev_key, id, pw};
+	console.log(data);
+	fetch(member_delete_url, {
+		method:"POST",
+		headers: {"Content-Type": "application/json"},
+		body: JSON.stringify(data),
+	}).then(function(res){
+		return res.json();
+	}).then(function(obj){
+		const msg = obj['msg'];
+		const detail = obj['detail'];
+		if(msg=='OK'){
+			alert('통합 회원탈퇴 완료');
+			document.getElemtentById('delete-modal-close-btn').click();
+		}else{
+			alert(detail);
+		}
+	});
+});
+&lt;/script&gt;
+				</textarea>
+				<div>
+					<input class="btn btn-success" type="button"
+						id="copy-delete-code-btn" value="복사하기" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-5 p-4 bg-dark text-white text-center">
+		<p>&copy;SieunKim and Jaehwa Seo</p>
+	</div>
+	<!-- key modal start -->
+	<!-- The Modal -->
+	<div class="modal" id="keyModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">개발자 키를 발급 받으세요!</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						id="key-modal-close-btn"></button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<!-- key generate from start -->
+					<form>
+						<div class="mb-3 mt-3">
+							<label for="dev-id" class="form-label">Developer's ID:</label> <input
+								type="text" class="form-control" id="dev-id"
+								placeholder="Enter Developer's ID">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="dev-pw" class="form-label">Password:</label> <input
+								type="password" class="form-control" id="dev-pw"
+								placeholder="Enter password">
+						</div>
+						<input type="button" class="btn btn-primary" value="발급"
+							id="generate-key-btn" />
+					</form>
+					<!-- key generate from end -->
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- key modal end -->
+
+	<!-- register modal start -->
+	<!-- The Modal -->
+	<div class="modal" id="registerModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">통합 회원 가입</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						id="register-modal-close-btn"></button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<!-- register form start -->
+					<form>
+						<div class="mb-3 mt-3">
+							<label for="id" class="form-label">ID:</label> <input type="text"
+								class="form-control" id="id" placeholder="Enter ID">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="pw" class="form-label">Password:</label> <input
+								type="password" class="form-control" id="pw"
+								placeholder="Enter password">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="name" class="form-label">Name:</label> <input
+								type="text" class="form-control" id="name"
+								placeholder="Enter Name">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="email" class="form-label">Email:</label> <input
+								type="email" class="form-control" id="email"
+								placeholder="Enter email">
+						</div>
+						<div class="mb-3 mt-3">
+							<label for="birthday" class="form-label">Birthday:</label> <input
+								type="date" class="form-control" id="birthday"
+								value="1997-08-04">
+						</div>
+						<input type="button" class="btn btn-primary" value="통합 회원가입"
+							id="register-btn" />
+					</form>
+					<!-- register form end -->
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- register modal end -->
+	<!-- delete modal start -->
+	<!-- The Modal -->
+	<div class="modal" id="deleteModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">통합회원 탈퇴</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						id="delete-modal-close-btn"></button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="">
+						<div class="mb-3 mt-3">
+							<label for="delete-id" class="form-label">ID:</label> <input
+								type="text" class="form-control" id="delete-id"
+								placeholder="Enter ID">
+						</div>
+						<div class="mb-3">
+							<label for="delete-pw" class="form-label">Password:</label> <input
+								type="password" class="form-control" id="delete-pw"
+								placeholder="Enter password" name="pswd">
+						</div>
+						<div class="form-check mb-3">
+							<label class="form-check-label"> <input
+								class="form-check-input" type="checkbox" id="delete-check">
+								회원 탈퇴를 희망합니다.
+							</label>
+						</div>
+						<input type="button" class="btn btn-primary" value="회원 탈퇴"
+							id="delete-btn">
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- delete modal end -->
+</body>
+<script type="text/javascript" src="./js/dev.js"></script>
+<script type="text/javascript" src="./js/key.js"></script>
+<script type="text/javascript" src="./js/api.js"></script>
+<script type="text/javascript" src="./js/copy.js"></script>
+<!-- <script type="text/javascript" src="./js/login.js"></script> -->
+</html>

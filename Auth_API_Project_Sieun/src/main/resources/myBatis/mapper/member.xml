@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.auth.api.model.mapper.MemberMapper">
+	<insert id="createKey" parameterType="memberDto">
+		insert into `member_crypt`(`id`, `key`, `salt`)
+		values (#{id}, #{key}, #{salt})
+	</insert>
+	<insert id="createMember" parameterType="memberDto">
+		insert into `member`(`id`, `pw`,`name`, `email`, `birthday`)
+		values (#{id}, #{pw},#{name}, #{email}, #{birthday})
+	</insert>
+	<select id="readPw" parameterType="String" resultType="String">
+		select `pw`
+		from `member`
+		where `id`=#{id}
+	</select>
+	<select id="readSalt" parameterType="String" resultType="String">
+		select `salt`
+		from `member_crypt`
+		where `id`=#{id}
+	</select>
+	<select id="readKey" parameterType="String" resultType="String">
+		select `key`
+		from `member_crypt`
+		where `id`=#{id}
+	</select>
+	<select id="readMember" parameterType="String" resultType="memberDto">
+		select `id`, `pw`, `name`, `email`, `birthday`
+		from `member`
+		where `id`=#{id}
+	</select>
+	<delete id="deleteMember" parameterType="String">
+		delete from `member`
+		where `id`=#{id}
+	</delete>
+	<select id="checkId" parameterType="String" resultType="Integer">
+		select count(*)
+		from `member`
+		where id=#{id}
+	</select>
+	<delete id="deleteKey" parameterType="String">
+		delete from `member_crypt`
+		where `id`=#{id}
+	</delete>
+</mapper>

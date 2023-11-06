@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.auth.dev.model.mapper.DevMapper">
+	<select id="readKey" parameterType="devDto" resultType="String">
+		select `key`
+		from `dev_crypt`
+		where `id`=#{id}
+	</select>
+	<select id="readPw" parameterType="devDto" resultType="String">
+		select `pw`
+		from `dev`
+		where `id`=#{id}
+	</select>
+	<insert id="createDev" parameterType="devDto">
+		insert into `dev`(`id`, `pw`)
+		values(#{id}, #{pw})
+	</insert>
+	<insert id="createKey" parameterType="devDto">
+		insert into `dev_crypt`(`id`, `key`)
+		values(#{id}, #{key})
+	</insert>
+	<select id="readDevId" parameterType="String" resultType="Integer">
+		select count(`id`)
+		from `dev_crypt`
+		where `key`=#{key}
+	</select>
+</mapper>
